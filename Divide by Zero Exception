@@ -1,0 +1,8 @@
+
+public class Divide_by_Zero_Exception extends Exception {
+	
+	public Divide_by_Zero_Exception ()
+	{
+		super("Cannot divide by Zero!");
+	}
+}
