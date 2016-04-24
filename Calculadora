@@ -1,6 +1,3 @@
-# Calculadora-Modificada-Exercicio-4
-Exercicio 4 CES-22
-
 import javax.swing.*;     // Para os Frames
 import java.awt.*;        // Para a interface grafica
 import java.awt.event.*;  // Para os eventos
@@ -9,7 +6,7 @@ import java.awt.Font;
 
 public class Calculadora extends JFrame implements ActionListener{
 
-	private JPanel Panel = new JPanel ();
+	private JPanel Panel = new JPanel ();  //Declaração de Variáveis
 	private TextArea Screen = new TextArea(1, 100);
 	
 	private JButton botao1, botao2, botao3, botao4, botao5, botao6, botao7, botao8, botao9, botao_Adicao, botao_Subt, botao_Mult, botao_Div, botao_Igual;
@@ -20,6 +17,7 @@ public class Calculadora extends JFrame implements ActionListener{
 	
 	public Calculadora ()
 	{
+		// Adicionar elementos gráficos
 		Screen.setEditable(false);
 		
 		botao0 = new JButton ("0");
@@ -57,7 +55,7 @@ public class Calculadora extends JFrame implements ActionListener{
 		Panel.add(botao_Igual);
 		Panel.add(botao_Limpar);
 		
-		botao0.addActionListener(this);
+		botao0.addActionListener(this);   //Adicionar eventos
 		botao1.addActionListener(this);
 		botao2.addActionListener(this);
 		botao3.addActionListener(this);
@@ -87,8 +85,11 @@ public class Calculadora extends JFrame implements ActionListener{
 	public void actionPerformed (ActionEvent e)
 	{
 		Object source = e.getSource();
-		if (source == botao0)
+		if (source == botao0)    //Botões de diferentes valores (0-9)
+		{
+			value = value*10;
 			Screen.append("0");
+		}	
 		else if (source == botao1)
 		{
 			value = value*10 + 1;	
@@ -134,35 +135,35 @@ public class Calculadora extends JFrame implements ActionListener{
 			value = value*10 + 9;	
 			Screen.append("9");
 		}
-		else if (source == botao_Adicao)
+		else if (source == botao_Adicao)   //Operação Adição
 		{
 			Operacao = "+";
 			armazenado = value;
 			value = 0;
 			Screen.setText("Operacao Soma. Digite o proximo numero: ");
 		}
-		else if (source == botao_Subt)
+		else if (source == botao_Subt)		//Operação Subtração
 		{
 			Screen.setText("Operacao Subtracao. Digite o proximo numero: ");
 			Operacao = "-";
 			armazenado = value;
 			value = 0;
 		}
-		else if (source == botao_Mult)
+		else if (source == botao_Mult)		//Operação Multiplicação
 		{
 			Screen.setText("Operacao Mult. Digite o proximo numero: ");
 			Operacao = "*";
 			armazenado = value;
 			value = 0;
 		}
-		else if (source == botao_Div)
+		else if (source == botao_Div)			//Operação Divisao
 		{
 			Screen.setText("Operacao Div. Digite o proximo numero: ");
 			Operacao = "/";
 			armazenado = value;
 			value = 0;
 		}
-		else if (source == botao_Igual)
+		else if (source == botao_Igual)		//Botão igual: Executa a operação
 		{
 			try
 			{
@@ -170,10 +171,10 @@ public class Calculadora extends JFrame implements ActionListener{
 			}
 			catch (Divide_by_Zero_Exception e1)
 			{    
-				Screen.setText("Erro: Divisao por Zero!");;
+				Screen.setText("Erro: Divisao por Zero!");  //Erro: divisão por zero
 			}
 		}
-		else if (source == botao_Limpar)
+		else if (source == botao_Limpar)		//Boão Clear
 		{
 			value = 0;
 			armazenado = 0;
@@ -181,39 +182,42 @@ public class Calculadora extends JFrame implements ActionListener{
 		}
 	}
 	
+	//Esta função calcula o resultado
+	
 	void compute () throws Divide_by_Zero_Exception 
 	{
-		if (Operacao == "+")
+		if (Operacao == "+")		//Adição
 		{
 			value = value + armazenado;
 			Screen.setText("" + value + "");
 		}
-		else if (Operacao == "-")
+		else if (Operacao == "-")	//Subtração
 		{
 			value = armazenado - value;
 			Screen.setText("" + value + "");
 		}
-		else if (Operacao == "*")
+		else if (Operacao == "*")	//Multiplicação
 		{
 			value = value * armazenado;
 			Screen.setText("" + value + "");
 		}
-		else if (Operacao == "/")
+		else if (Operacao == "/")	//Divisão
 		{
 			if (value == 0)
 			{  
-			   throw new Divide_by_Zero_Exception();
+			   throw new Divide_by_Zero_Exception();  //Exceção: Dividir por Zero é proibido
 			}
 			else { value = armazenado / value; Screen.setText("" + value + ""); }
 		}
 	}
 	
+	//Função main
 	public static void main(String[] args) {
 		
 		Calculadora Calc = new Calculadora ();
 		
 		Calc.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-	
+		Calc.setTitle("Calculadora");
 		Calc.pack();
 		Calc.setVisible(true);
 		
